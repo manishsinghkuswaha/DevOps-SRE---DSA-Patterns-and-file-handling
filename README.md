@@ -25,7 +25,7 @@ So this list leans that way too: patterns over raw volume, and a lot more weight
 
 | Section | Count | Focus |
 |---|---|---|
-| DSA Patterns | 55 problems | 8 core patterns (arrays/strings, two pointers, sliding window, hashing, sorting, recursion, linked list/stack/queue/binary search), each tied to a real infra use case |
+| DSA Patterns | 55 problems | 12 pattern areas, including prefix sums, heaps, trees/graphs, and bit manipulation, tied to infrastructure use cases |
 | Python File Handling | 15 exercises | Log parsing, CSV/JSON aggregation, safe file writes, config diffing, log rotation |
 | Shell Scripting on Files | 30 exercises | grep/awk/sed, log analysis, disk and file management, the kind of one-liners that separate candidates in SRE/DevOps loops |
 
@@ -36,7 +36,9 @@ Every problem links directly to LeetCode, HackerRank, GeeksforGeeks, NeetCode, o
 1. Start with DSA Patterns, going topic by topic. Short on time? Prioritize Arrays & Strings, Hashing, and Sliding Window first, those cover most of what actually gets asked.
 2. Move to Python File Handling once the patterns are solid. This is where most candidates lose points, public problem banks barely cover it even though it comes up constantly in real interviews.
 3. Finish with Shell Scripting on Files. Often the part that actually separates candidates in SRE/DevOps loops, more than the algorithmic round.
-4. Use the checkboxes on the page to track a sitting. Mark something done once you can explain your approach out loud, not just once it passed.
+4. Use the checkboxes to track your progress. Mark something done once you can explain your approach out loud, not just once it passed. Progress is saved locally in your browser, so it remains after a reload without an account.
+
+Use Practice Tools to search by problem or prompt, filter by section, DSA pattern, and estimated difficulty, pick a random unfinished problem, or review completed items. Progress can be exported or imported as JSON, or reset from the page.
 
 ## Contributing
 
@@ -53,5 +55,5 @@ If this helped you prep, tag Manish on LinkedIn once you've worked through it an
 ---
 
 <div align="center">
-<sub>Built as a single self-contained HTML page. No frameworks, no build step, no tracking beyond a simple visit counter.</sub>
+<sub>Built as a single self-contained HTML page. No frameworks or build step; checklist progress stays in your browser, and the visitor badge displays page views.</sub>
 </div>
