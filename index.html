@@ -13,13 +13,17 @@
     --border: #e3e6ea;
     --text: #24292f;
     --muted: #6b7280;
-    --easy: #2e7d32;
+    --easy: #1b5e20;
     --easy-bg: #e2efda;
-    --med: #b8860b;
+    --med: #705500;
     --med-bg: #fff2cc;
+    --hard: #8d1f1f;
+    --hard-bg: #fce4e4;
     --link: #1155cc;
+    --nav-height: 59px;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
@@ -45,12 +49,15 @@
     background: var(--card);
     border-bottom: 1px solid var(--border);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     gap: 6px;
     padding: 10px;
+    overflow-x: auto;
+    scrollbar-width: thin;
   }
   nav a {
+    flex: 0 0 auto;
     color: var(--navy);
     text-decoration: none;
     font-size: 0.9rem;
@@ -58,10 +65,17 @@
     padding: 8px 14px;
     border-radius: 20px;
     background: var(--bg);
+    white-space: nowrap;
   }
   nav a:hover { background: #e9edf5; }
+  @media (min-width: 760px) {
+    nav { justify-content: center; }
+  }
   main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 60px; }
-  section { margin-bottom: 44px; }
+  section {
+    margin-bottom: 44px;
+    scroll-margin-top: calc(var(--nav-height) + 12px);
+  }
   .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -94,6 +108,7 @@
   }
   table {
     width: 100%;
+    min-width: 760px;
     border-collapse: collapse;
     font-size: 0.9rem;
     margin-top: 8px;
@@ -107,8 +122,6 @@
   th {
     background: var(--navy);
     color: white;
-    position: sticky;
-    top: 53px;
   }
   tr:nth-child(even) { background: #fafbfc; }
   .topic-cell { background: #eef2fa !important; min-width: 190px; }
@@ -122,6 +135,7 @@
   }
   .badge-easy { background: var(--easy-bg); color: var(--easy); }
   .badge-med { background: var(--med-bg); color: var(--med); }
+  .badge-hard { background: var(--hard-bg); color: var(--hard); }
   .tag { font-size: 0.8rem; color: var(--muted); font-style: italic; }
   .prompt { font-size: 0.83rem; color: var(--text); max-width: 420px; }
   .dash { color: var(--muted); }
@@ -136,6 +150,95 @@
     margin-top: 10px;
   }
   .cta h3 { margin-top: 0; }
+  [hidden] { display: none !important; }
+  .practice-tools { margin-bottom: 36px; }
+  .noscript-note {
+    max-width: 1080px;
+    margin: 12px auto;
+    padding: 12px 16px;
+    color: var(--navy);
+    background: #eef2fa;
+    border: 1px solid #d9e2f3;
+    border-radius: 8px;
+  }
+  .tools-heading, .tools-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .tools-heading h2 { margin-bottom: 4px; }
+  .tools-heading p, .tools-footer p { margin: 0; }
+  .overall-progress {
+    flex: 0 0 auto;
+    color: var(--navy);
+    background: #eef2fa;
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  .control-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    align-items: end;
+    margin: 20px 0 16px;
+  }
+  .control-field {
+    display: grid;
+    gap: 5px;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  .control-field input, .control-field select {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid #c9cfd8;
+    border-radius: 7px;
+    background: white;
+    color: var(--text);
+    padding: 9px 11px;
+    font: inherit;
+    font-size: 0.9rem;
+  }
+  .control-field input:focus, .control-field select:focus, .button:focus-visible {
+    outline: 3px solid #92b4ee;
+    outline-offset: 2px;
+  }
+  .revision-toggle {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 44px;
+    color: var(--text);
+    font-size: 0.88rem;
+  }
+  .revision-toggle input { width: 18px; height: 18px; }
+  .button {
+    min-height: 42px;
+    border: 1px solid #b8c3d4;
+    border-radius: 7px;
+    padding: 8px 12px;
+    background: white;
+    color: var(--navy);
+    font: inherit;
+    font-size: 0.86rem;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  .button:hover { background: #f0f4fb; }
+  .button-primary { background: var(--navy); color: white; border-color: var(--navy); }
+  .button-primary:hover { background: var(--navy-light); }
+  .button-subtle { color: #6b3333; }
+  .tools-footer { border-top: 1px solid var(--border); padding-top: 14px; }
+  .progress-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .practice-feedback { min-height: 1.4em; margin-bottom: 0; color: var(--muted); font-size: 0.86rem; }
+  .estimated-time { display: block; margin-top: 5px; color: var(--muted); font-size: 0.76rem; }
+  .spotlight-row > td { background: #fff2cc !important; }
+  .interview-cues { margin-top: 7px; font-size: 0.78rem; }
+  .interview-cues summary { color: var(--navy); cursor: pointer; font-weight: 600; }
+  .interview-cues p { margin: 6px 0 0; color: var(--muted); }
+  .interview-cues strong { color: var(--text); }
   footer {
     text-align: center;
     padding: 30px 16px 50px;
@@ -143,7 +246,27 @@
     font-size: 0.85rem;
   }
   footer a { color: var(--navy); font-weight: 600; }
-  .table-wrap { overflow-x: auto; }
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-inline: contain;
+  }
+  @media (max-width: 760px) {
+    .control-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    main { padding: 18px 12px 44px; }
+    .card { padding: 18px 16px; }
+    .tools-heading, .tools-footer { align-items: stretch; flex-direction: column; }
+    .progress-actions { display: grid; grid-template-columns: 1fr 1fr; }
+    .progress-actions .button:last-of-type { grid-column: 1 / -1; }
+    .control-grid { grid-template-columns: 1fr; }
+    .tools-heading { gap: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: 0.01ms !important; }
+  }
 </style>
 </head>
 <body>
@@ -156,12 +279,15 @@
   </p>
 </header>
 
-<nav>
+<nav aria-label="Main navigation">
   <a href="#readme">Read Me First</a>
+  <a href="#practice-tools">Practice Tools</a>
   <a href="#dsa">DSA Patterns</a>
   <a href="#python">Python File Handling</a>
   <a href="#shell">Shell Scripting</a>
 </nav>
+
+<noscript><p class="noscript-note">Search, filters, and progress tracking need JavaScript. The problem list and links remain available below.</p></noscript>
 
 <main>
 
@@ -174,13 +300,13 @@
       <p>So this list leans that way too: patterns over raw volume, and a lot more weight on Python file handling and shell scripting practice than a typical algorithm-only list gives you.</p>
 
       <h3>How to use this page</h3>
-      <p>1. Start with the DSA Patterns section and go topic by topic - Arrays &amp; Strings, Two Pointers, Sliding Window, Kadane's/Subarrays, Hashing, Sorting, Recursion, then the Linked List / Stack / Queue / Binary Search basics that show up in infra tooling (caches, queues, bisecting a bad deploy). Short on time? Prioritize Arrays &amp; Strings, Hashing, and Sliding Window first, since those cover most of what actually gets asked.</p>
+      <p>1. Start with DSA Patterns and work through Arrays &amp; Strings, Two Pointers, Sliding Window, Prefix Sums, Kadane's Algorithm, Hashing, Sorting, Heaps, Recursion, Bit Manipulation, Trees &amp; Graphs, and the linked-list/stack/queue/binary-search basics used in infra tooling. Short on time? Prioritize Arrays &amp; Strings, Hashing, and Sliding Window first.</p>
       <p>2. Move to Python File Handling next. These sit closer to real SRE work than most LeetCode problems do, and a handful are original practice prompts (log parsing, CSV/JSON aggregation, safe file writes) because public problem banks barely cover this skill, even though it comes up constantly in real interviews.</p>
       <p>3. Finish with Shell Scripting on Files. Bash, grep, awk, sed, plus log analysis and disk management exercises - this is often the part that actually separates candidates in SRE/DevOps loops, more so than the algorithmic round.</p>
-      <p>4. Check a problem off once you can explain your approach out loud, not just once it passed. That's the real bar interviewers use. (Checkboxes reset when you reload the page, they're just for tracking a single sitting.)</p>
+      <p>4. Check a problem off once you can explain your approach out loud, not just once it passed. That's the real bar interviewers use. Your progress is saved in this browser and stays checked after a reload.</p>
 
       <h3>A note on scope</h3>
-      <p>This list runs to roughly 100 problems and exercises across all three practice sections, which is on the thorough side, not a bare minimum. If you're doing a quick refresher instead of a full prep cycle, just treat the top few rows of each pattern/category as the priority set, not the whole page.</p>
+      <p>This list has 100 problems and exercises across all three practice sections, which is on the thorough side, not a bare minimum. If you're doing a quick refresher instead of a full prep cycle, just treat the top few rows of each pattern/category as the priority set, not the whole page.</p>
 
       <h3>Sources</h3>
       <p>Problems are pulled from LeetCode, NeetCode, GeeksforGeeks, HackerRank, and w3resource. Where no public problem exists for a real interview skill (this happens a lot with file handling and log analysis topics), the row is labeled as a practice exercise with the prompt written out in place of a link. That's called out on purpose, not passed off as a sourced problem.</p>
@@ -192,10 +318,60 @@
     </div>
   </section>
 
+  <section id="practice-tools" class="card practice-tools" aria-labelledby="practice-tools-title">
+    <div class="tools-heading">
+      <div>
+        <h2 id="practice-tools-title">Practice Tools</h2>
+        <p>Search and filter the list, then pick a problem to work through. Difficulty and time estimates help plan a practice session.</p>
+      </div>
+      <p class="overall-progress"><strong id="overall-progress">0 / 100 complete</strong></p>
+    </div>
+    <div class="control-grid">
+      <label class="control-field" for="problem-search">Search
+        <input id="problem-search" type="search" placeholder="Problem, topic, or prompt">
+      </label>
+      <label class="control-field" for="section-filter">Section
+        <select id="section-filter">
+          <option value="all">All sections</option>
+          <option value="dsa">DSA patterns</option>
+          <option value="python">Python file handling</option>
+          <option value="shell">Shell scripting</option>
+        </select>
+      </label>
+      <label class="control-field" for="pattern-filter">DSA pattern
+        <select id="pattern-filter"><option value="all">All patterns</option></select>
+      </label>
+      <label class="control-field" for="difficulty-filter">Difficulty
+        <select id="difficulty-filter">
+          <option value="all">Any difficulty</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </label>
+      <label class="revision-toggle" for="revision-filter">
+        <input id="revision-filter" type="checkbox"> Revision mode (completed only)
+      </label>
+      <button class="button" id="clear-filters" type="button">Clear filters</button>
+      <button class="button button-primary" id="random-practice" type="button">Pick a random problem</button>
+    </div>
+    <div class="tools-footer">
+      <p id="filter-summary" aria-live="polite">Showing 100 problems</p>
+      <div class="progress-actions" aria-label="Progress actions">
+        <button class="button" id="export-progress" type="button">Export progress</button>
+        <button class="button" id="import-progress" type="button">Import progress</button>
+        <button class="button button-subtle" id="reset-progress" type="button">Reset progress</button>
+        <input id="progress-file" type="file" accept="application/json,.json" hidden>
+      </div>
+    </div>
+    <p class="practice-feedback" id="storage-notice" hidden></p>
+    <p class="practice-feedback" id="practice-feedback" role="status" aria-live="polite"></p>
+  </section>
+
   <section id="dsa">
     <div class="card">
       <h2>DSA Patterns</h2>
-      <div class="progress-wrap"><span>Progress</span><div class="progress-bar"><div class="progress-fill" data-section="dsa"></div></div><span class="progress-label" data-section="dsa">0 / 0</span></div>
+      <div class="progress-wrap"><span>Progress</span><div class="progress-bar" role="progressbar" aria-label="DSA completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" data-section="dsa"></div></div><span class="progress-label" data-section="dsa" aria-live="polite">0 / 0</span></div>
       <div class="table-wrap">
       <table>
         <thead><tr><th>Topic / Pattern</th><th>Problem</th><th>Difficulty</th><th>Link</th><th>Status</th></tr></thead>
@@ -299,7 +475,7 @@
 <td class="status-cell"><input type="checkbox" class="track"></td>
 </tr>
 <tr>
-<td class="topic-cell" rowspan="7"><strong>Sliding Window</strong><div class="why">Maps directly to monitoring/alerting logic: rolling-window rate limiting, max errors in the last N requests, and log-throughput analysis over a moving time frame.</div></td>
+<td class="topic-cell" rowspan="4"><strong>Sliding Window</strong><div class="why">Maps directly to monitoring/alerting logic: rolling-window rate limiting, max errors in the last N requests, and log-throughput analysis over a moving time frame.</div></td>
 <td>Longest Substring Without Repeating Characters</td>
 <td><span class="badge badge-med">Medium</span></td>
 <td><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
@@ -321,51 +497,16 @@
 </tr>
 <tr>
 
-<td>Permutation in String</td>
-<td><span class="badge badge-med">Medium</span></td>
-<td><a href="https://leetcode.com/problems/permutation-in-string/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
-<td class="status-cell"><input type="checkbox" class="track"></td>
-</tr>
-<tr>
-
 <td>Find All Anagrams in a String</td>
 <td><span class="badge badge-med">Medium</span></td>
 <td><a href="https://leetcode.com/problems/find-all-anagrams-in-a-string/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
 <td class="status-cell"><input type="checkbox" class="track"></td>
 </tr>
 <tr>
-
-<td>Fruit Into Baskets</td>
-<td><span class="badge badge-med">Medium</span></td>
-<td><a href="https://leetcode.com/problems/fruit-into-baskets/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
-<td class="status-cell"><input type="checkbox" class="track"></td>
-</tr>
-<tr>
-
-<td>Max Consecutive Ones III</td>
-<td><span class="badge badge-med">Medium</span></td>
-<td><a href="https://leetcode.com/problems/max-consecutive-ones-iii/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
-<td class="status-cell"><input type="checkbox" class="track"></td>
-</tr>
-<tr>
-<td class="topic-cell" rowspan="6"><strong>Kadane&#x27;s Algorithm / Subarrays</strong><div class="why">The core pattern behind longest uptime streak, worst rolling latency window, and cumulative-sum dashboards over time-series metrics.</div></td>
+<td class="topic-cell" rowspan="3"><strong>Prefix Sums</strong><div class="why">Precompute cumulative counts or totals so range queries and subarray-sum checks stay efficient, as in per-host request and error counters.</div></td>
 <td>Range Sum Query - Immutable</td>
 <td><span class="badge badge-easy">Easy</span></td>
 <td><a href="https://leetcode.com/problems/range-sum-query-immutable/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
-<td class="status-cell"><input type="checkbox" class="track"></td>
-</tr>
-<tr>
-
-<td>Maximum Subarray</td>
-<td><span class="badge badge-med">Medium</span></td>
-<td><a href="https://leetcode.com/problems/maximum-subarray/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
-<td class="status-cell"><input type="checkbox" class="track"></td>
-</tr>
-<tr>
-
-<td>Maximum Product Subarray</td>
-<td><span class="badge badge-med">Medium</span></td>
-<td><a href="https://leetcode.com/problems/maximum-product-subarray/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
 <td class="status-cell"><input type="checkbox" class="track"></td>
 </tr>
 <tr>
@@ -383,6 +524,20 @@
 <td class="status-cell"><input type="checkbox" class="track"></td>
 </tr>
 <tr>
+<td class="topic-cell" rowspan="3"><strong>Kadane&#x27;s Algorithm</strong><div class="why">Track the best contiguous run in a metric series, such as the strongest uptime streak or the worst cumulative latency interval.</div></td>
+<td>Maximum Subarray</td>
+<td><span class="badge badge-med">Medium</span></td>
+<td><a href="https://leetcode.com/problems/maximum-subarray/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
+<td class="status-cell"><input type="checkbox" class="track"></td>
+</tr>
+<tr>
+
+<td>Maximum Product Subarray</td>
+<td><span class="badge badge-med">Medium</span></td>
+<td><a href="https://leetcode.com/problems/maximum-product-subarray/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
+<td class="status-cell"><input type="checkbox" class="track"></td>
+</tr>
+<tr>
 
 <td>Maximum Sum Circular Subarray</td>
 <td><span class="badge badge-med">Medium</span></td>
@@ -390,7 +545,7 @@
 <td class="status-cell"><input type="checkbox" class="track"></td>
 </tr>
 <tr>
-<td class="topic-cell" rowspan="7"><strong>Hashing</strong><div class="why">Used constantly for deduplication, caching, and log aggregation in real SRE tooling: grouping alerts by fingerprint, counting unique hosts, frequency-based anomaly detection.</div></td>
+<td class="topic-cell" rowspan="6"><strong>Hashing</strong><div class="why">Used constantly for deduplication, caching, and log aggregation in real SRE tooling: grouping alerts by fingerprint, counting unique hosts, frequency-based anomaly detection.</div></td>
 <td>Contains Duplicate</td>
 <td><span class="badge badge-easy">Easy</span></td>
 <td><a href="https://leetcode.com/problems/contains-duplicate/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
@@ -426,20 +581,13 @@
 </tr>
 <tr>
 
-<td>Top K Frequent Elements</td>
-<td><span class="badge badge-med">Medium</span></td>
-<td><a href="https://leetcode.com/problems/top-k-frequent-elements/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
-<td class="status-cell"><input type="checkbox" class="track"></td>
-</tr>
-<tr>
-
 <td>Longest Consecutive Sequence</td>
 <td><span class="badge badge-med">Medium</span></td>
 <td><a href="https://leetcode.com/problems/longest-consecutive-sequence/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
 <td class="status-cell"><input type="checkbox" class="track"></td>
 </tr>
 <tr>
-<td class="topic-cell" rowspan="6"><strong>Sorting</strong><div class="why">Comes up whenever you&#x27;re ranking hosts by load, merging sorted time-series shards, or ordering deploy/rollout sequences by priority.</div></td>
+<td class="topic-cell" rowspan="5"><strong>Sorting</strong><div class="why">Comes up whenever you&#x27;re ranking hosts by load, merging sorted time-series shards, or ordering deploy/rollout sequences by priority.</div></td>
 <td>Merge Sorted Array</td>
 <td><span class="badge badge-easy">Easy</span></td>
 <td><a href="https://leetcode.com/problems/merge-sorted-array/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
@@ -450,13 +598,6 @@
 <td>Relative Sort Array</td>
 <td><span class="badge badge-easy">Easy</span></td>
 <td><a href="https://leetcode.com/problems/relative-sort-array/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
-<td class="status-cell"><input type="checkbox" class="track"></td>
-</tr>
-<tr>
-
-<td>Kth Largest Element in an Array</td>
-<td><span class="badge badge-med">Medium</span></td>
-<td><a href="https://leetcode.com/problems/kth-largest-element-in-an-array/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
 <td class="status-cell"><input type="checkbox" class="track"></td>
 </tr>
 <tr>
@@ -481,7 +622,26 @@
 <td class="status-cell"><input type="checkbox" class="track"></td>
 </tr>
 <tr>
-<td class="topic-cell" rowspan="6"><strong>Basic Recursion</strong><div class="why">The mental model behind traversing nested config trees (YAML/JSON), retry/backoff logic, and any divide-and-conquer utility script.</div></td>
+<td class="topic-cell" rowspan="3"><strong>Heap / Priority Queue</strong><div class="why">Keep the busiest hosts or highest-priority alerts available efficiently, and merge multiple time-ordered log streams without sorting everything together.</div></td>
+<td>Kth Largest Element in an Array</td>
+<td><span class="badge badge-med">Medium</span></td>
+<td><a href="https://leetcode.com/problems/kth-largest-element-in-an-array/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
+<td class="status-cell"><input type="checkbox" class="track"></td>
+</tr>
+<tr>
+<td>Top K Frequent Elements</td>
+<td><span class="badge badge-med">Medium</span></td>
+<td><a href="https://leetcode.com/problems/top-k-frequent-elements/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
+<td class="status-cell"><input type="checkbox" class="track"></td>
+</tr>
+<tr>
+<td>Merge K Sorted Lists</td>
+<td><span class="badge badge-hard">Hard</span></td>
+<td><a href="https://leetcode.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
+<td class="status-cell"><input type="checkbox" class="track"></td>
+</tr>
+<tr>
+<td class="topic-cell" rowspan="4"><strong>Recursion &amp; Divide and Conquer</strong><div class="why">Useful for traversing nested configuration trees and splitting a problem into smaller parts; recognize when an iterative version is safer for deep inputs.</div></td>
 <td>Reverse String</td>
 <td><span class="badge badge-easy">Easy</span></td>
 <td><a href="https://leetcode.com/problems/reverse-string/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
@@ -503,27 +663,33 @@
 </tr>
 <tr>
 
-<td>Power of Two</td>
-<td><span class="badge badge-easy">Easy</span></td>
-<td><a href="https://leetcode.com/problems/power-of-two/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
-<td class="status-cell"><input type="checkbox" class="track"></td>
-</tr>
-<tr>
-
-<td>Merge Two Sorted Lists</td>
-<td><span class="badge badge-easy">Easy</span></td>
-<td><a href="https://leetcode.com/problems/merge-two-sorted-lists/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
-<td class="status-cell"><input type="checkbox" class="track"></td>
-</tr>
-<tr>
-
 <td>Pow(x, n)</td>
 <td><span class="badge badge-med">Medium</span></td>
 <td><a href="https://leetcode.com/problems/powx-n/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
 <td class="status-cell"><input type="checkbox" class="track"></td>
 </tr>
 <tr>
-<td class="topic-cell" rowspan="9"><strong>SRE-Adjacent Structures (Linked List / Stack / Queue / Binary Search)</strong><div class="why">Literal building blocks of infra tooling: LRU Cache mirrors real cache eviction, Queue/Stack problems map to job/monitoring pipelines, and Binary Search underlies bisecting a bad deploy commit or searching sorted metric logs.</div></td>
+<td class="topic-cell" rowspan="1"><strong>Bit Manipulation</strong><div class="why">Bit checks appear in compact feature flags, permissions, and power-of-two buffer sizing.</div></td>
+<td>Power of Two</td>
+<td><span class="badge badge-easy">Easy</span></td>
+<td><a href="https://leetcode.com/problems/power-of-two/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
+<td class="status-cell"><input type="checkbox" class="track"></td>
+</tr>
+<tr>
+<td class="topic-cell" rowspan="2"><strong>Trees &amp; Graphs</strong><div class="why">Breadth-first traversal helps inspect service/dependency trees level by level, while topological sorting gives a safe order for builds and deployments and exposes cycles.</div></td>
+<td>Binary Tree Level Order Traversal</td>
+<td><span class="badge badge-med">Medium</span></td>
+<td><a href="https://leetcode.com/problems/binary-tree-level-order-traversal/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
+<td class="status-cell"><input type="checkbox" class="track"></td>
+</tr>
+<tr>
+<td>Course Schedule</td>
+<td><span class="badge badge-med">Medium</span></td>
+<td><a href="https://leetcode.com/problems/course-schedule/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
+<td class="status-cell"><input type="checkbox" class="track"></td>
+</tr>
+<tr>
+<td class="topic-cell" rowspan="10"><strong>SRE-Adjacent Data Structures</strong><div class="why">Queues and stacks model job pipelines, linked lists underpin cache eviction, merging sorted lists combines event streams, and binary search helps bisect a bad deploy or find a metric boundary.</div></td>
 <td>Reverse Linked List</td>
 <td><span class="badge badge-easy">Easy</span></td>
 <td><a href="https://leetcode.com/problems/reverse-linked-list/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
@@ -534,6 +700,13 @@
 <td>Linked List Cycle</td>
 <td><span class="badge badge-easy">Easy</span></td>
 <td><a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
+<td class="status-cell"><input type="checkbox" class="track"></td>
+</tr>
+<tr>
+
+<td>Merge Two Sorted Lists</td>
+<td><span class="badge badge-easy">Easy</span></td>
+<td><a href="https://leetcode.com/problems/merge-two-sorted-lists/" target="_blank" rel="noopener">Open problem &rarr;</a></td>
 <td class="status-cell"><input type="checkbox" class="track"></td>
 </tr>
 <tr>
@@ -594,7 +767,7 @@
   <section id="python">
     <div class="card">
       <h2>Python File Handling</h2>
-      <div class="progress-wrap"><span>Progress</span><div class="progress-bar"><div class="progress-fill" data-section="python"></div></div><span class="progress-label" data-section="python">0 / 0</span></div>
+      <div class="progress-wrap"><span>Progress</span><div class="progress-bar" role="progressbar" aria-label="Python file handling completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" data-section="python"></div></div><span class="progress-label" data-section="python" aria-live="polite">0 / 0</span></div>
       <div class="table-wrap">
       <table>
         <thead><tr><th>Exercise</th><th>What It Tests</th><th>Link</th><th>Practice Prompt (if no link)</th><th>Status</th></tr></thead>
@@ -713,7 +886,7 @@
   <section id="shell">
     <div class="card">
       <h2>Shell Scripting on Files</h2>
-      <div class="progress-wrap"><span>Progress</span><div class="progress-bar"><div class="progress-fill" data-section="shell"></div></div><span class="progress-label" data-section="shell">0 / 0</span></div>
+      <div class="progress-wrap"><span>Progress</span><div class="progress-bar" role="progressbar" aria-label="Shell scripting completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" data-section="shell"></div></div><span class="progress-label" data-section="shell" aria-live="polite">0 / 0</span></div>
       <div class="table-wrap">
       <table>
         <thead><tr><th>Category</th><th>Problem / Exercise</th><th>Link</th><th>Practice Prompt (if no link)</th><th>Status</th></tr></thead>
@@ -942,22 +1115,506 @@
 </footer>
 
 <script>
+  var sections = ['dsa', 'python', 'shell'];
+  var progressStorageKey = 'devops-sre-prep:progress:v1';
+  var legacyStoragePrefix = 'devops-sre-prep:completed:';
+  var exerciseEstimates = {
+    python: {
+      'hackerrank - file handling (python hacks)': ['easy', 15],
+      'geeksforgeeks - python file handling quiz': ['easy', 15],
+      'pynative exercise 9 - handle missing file with try-except': ['easy', 10],
+      'pynative exercise 13 - count specific word occurrences in file': ['easy', 15],
+      'pynative exercise 15 - read only last n lines': ['medium', 20],
+      'pynative exercise 19 - search word and print matching line numbers': ['medium', 20],
+      'pynative exercise 24 - copy file using binary mode': ['easy', 15],
+      'pynative exercise 28 - merge two files into one': ['easy', 15],
+      'log error-rate extraction': ['medium', 30],
+      'csv server-metrics aggregation': ['medium', 30],
+      'efficient large-file tail/search': ['hard', 45],
+      'json config loading & validation': ['medium', 25],
+      'safe atomic file writes via context manager': ['hard', 45],
+      'config file diff tool': ['hard', 40],
+      'log rotation handling': ['hard', 45]
+    },
+    shell: {
+      'word frequency': ['easy', 15],
+      'valid phone numbers': ['easy', 15],
+      'transpose file': ['easy', 15],
+      'tenth line': ['easy', 10],
+      'hackerrank: grep #1': ['easy', 10],
+      'hackerrank: grep -a (context lines)': ['medium', 15],
+      'hackerrank: sed command #1': ['easy', 10],
+      'hackerrank: awk - 1': ['easy', 15],
+      'hackerrank: awk - 2': ['easy', 15],
+      'w3resource: searching for patterns using grep (15 exercises)': ['medium', 45],
+      'w3resource: text substitution and manipulation (sed-style)': ['medium', 30],
+      'extract failed logins by ip': ['medium', 20],
+      'rewrite a config value in place': ['easy', 15],
+      'top n ips in an access log': ['easy', 15],
+      'count error lines by hour': ['medium', 25],
+      'tail a log and alert on a pattern': ['hard', 40],
+      '5xx rate over a sliding window': ['hard', 40],
+      'hackerrank: head of a text file #1': ['easy', 10],
+      'hackerrank: tail of a text file #1': ['easy', 10],
+      'hackerrank: middle of a text file': ['easy', 15],
+      'hackerrank: sort command #1': ['easy', 15],
+      'hackerrank: uniq command #1': ['easy', 15],
+      'w3resource: searching for files (find/locate)': ['medium', 20],
+      'w3resource: archiving and compressing files (tar/gzip)': ['easy', 15],
+      'w3resource: creating, copying, moving, deleting files/directories': ['easy', 20],
+      'geeksforgeeks: 30+ common linux shell script examples': ['medium', 45],
+      'find the n largest files in a directory tree': ['medium', 25],
+      'disk usage report by subdirectory': ['medium', 25],
+      'log rotation script': ['hard', 35],
+      'stale file cleanup with safety check': ['hard', 35]
+    }
+  };
+
+  var records = [];
+  var dsaGroups = [];
+  var visibleRecords = [];
+  var completedIds = new Set();
+  var storageEnabled = false;
+  var lastPickedRow = null;
+  var sectionNames = {
+    dsa: 'DSA patterns',
+    python: 'Python file handling',
+    shell: 'Shell scripting'
+  };
+
+  function normalize(text) {
+    return text.toLowerCase().replace(/\s+/g, ' ').trim();
+  }
+
+  function getTitleCell(section, row) {
+    var cellIndex;
+    if (section === 'dsa') {
+      cellIndex = row.cells[0].classList.contains('topic-cell') ? 1 : 0;
+    } else {
+      cellIndex = section === 'python' ? 0 : 1;
+    }
+    return row.cells[cellIndex];
+  }
+
+  function getProblemName(section, row) {
+    return getTitleCell(section, row).textContent.trim().replace(/\s+/g, ' ');
+  }
+
+  function getProblemId(section, title) {
+    return section + ':' + encodeURIComponent(normalize(title));
+  }
+
+  function getEstimate(section, row, title) {
+    var difficulty;
+    var minutes;
+    if (section === 'dsa') {
+      if (row.querySelector('.badge-hard')) difficulty = 'hard';
+      else if (row.querySelector('.badge-med')) difficulty = 'medium';
+      else difficulty = 'easy';
+    } else {
+      var estimate = exerciseEstimates[section][normalize(title)] || ['easy', 15];
+      difficulty = estimate[0];
+      minutes = estimate[1];
+    }
+    if (!minutes) minutes = difficulty === 'hard' ? 40 : difficulty === 'medium' ? 25 : 15;
+    return { difficulty: difficulty, minutes: minutes };
+  }
+
+  function appendCue(details, label, text) {
+    var item = document.createElement('p');
+    var strong = document.createElement('strong');
+    strong.textContent = label + ': ';
+    item.appendChild(strong);
+    item.appendChild(document.createTextNode(text));
+    details.appendChild(item);
+  }
+
+  function addInterviewCues(record, titleCell) {
+    var details = document.createElement('details');
+    var summary = document.createElement('summary');
+    details.className = 'interview-cues';
+    summary.textContent = 'Interview cues';
+    details.appendChild(summary);
+    appendCue(details, 'Pattern / focus', record.pattern);
+    appendCue(details, 'Why it matters', record.context);
+    if (record.section === 'dsa') {
+      appendCue(details, 'Clarify', 'Input size, ordering, duplicates, and memory limits before choosing an approach.');
+      appendCue(details, 'Complexity', 'State expected time and extra space, then explain the tradeoff.');
+      appendCue(details, 'Follow-up', 'How would the approach change for a multi-GB event stream?');
+    } else if (record.section === 'python') {
+      appendCue(details, 'Clarify', 'File size, encoding, malformed records, and whether processing must stream.');
+      appendCue(details, 'Complexity', 'Explain memory use as file size grows and where buffering occurs.');
+      appendCue(details, 'Follow-up', 'How would you handle a corrupt line without losing the rest of the file?');
+    } else {
+      appendCue(details, 'Clarify', 'Shell portability, quoted fields, rotation behavior, and expected exit codes.');
+      appendCue(details, 'Complexity', 'Explain extra processes, memory use, and whether the pipeline streams.');
+      appendCue(details, 'Follow-up', 'How would you make it safe to rerun and handle rotated logs?');
+    }
+    titleCell.appendChild(details);
+  }
+
+  function buildRecords() {
+    sections.forEach(function (section) {
+      var tableRows = document.querySelectorAll('section#' + section + ' tbody tr');
+      var currentPattern = '';
+      var currentContext = '';
+      var currentGroup = null;
+
+      tableRows.forEach(function (row) {
+        var box = row.querySelector('input.track');
+        if (!box) return;
+
+        if (section === 'dsa') {
+          var topicCell = row.querySelector('.topic-cell');
+          if (topicCell) {
+            currentPattern = topicCell.querySelector('strong').textContent.trim();
+            currentContext = topicCell.querySelector('.why').textContent.trim();
+            currentGroup = {
+              cell: topicCell,
+              firstRow: row,
+              originalRowSpan: topicCell.rowSpan,
+              records: []
+            };
+            dsaGroups.push(currentGroup);
+          }
+        }
+
+        var title = getProblemName(section, row);
+        var titleCell = getTitleCell(section, row);
+        var pattern = section === 'dsa' ? currentPattern : section === 'python' ? 'Python file handling' : row.cells[0].textContent.trim();
+        var context = section === 'dsa' ? currentContext : section === 'python' ? row.cells[1].textContent.trim() : (row.cells[3].querySelector('.prompt') || row.cells[0]).textContent.trim();
+        var estimate = getEstimate(section, row, title);
+        var record = {
+          section: section,
+          row: row,
+          box: box,
+          title: title,
+          id: getProblemId(section, title),
+          pattern: pattern,
+          context: context,
+          difficulty: estimate.difficulty,
+          minutes: estimate.minutes,
+          group: currentGroup,
+          searchText: normalize(row.textContent + ' ' + pattern)
+        };
+
+        row.dataset.section = section;
+        row.dataset.pattern = pattern;
+        row.dataset.difficulty = estimate.difficulty;
+        box.setAttribute('aria-label', 'Mark ' + title + ' complete');
+
+        var time = document.createElement('span');
+        time.className = 'estimated-time';
+        time.textContent = section === 'dsa'
+          ? 'Estimated time: ~' + estimate.minutes + ' min'
+          : estimate.difficulty.charAt(0).toUpperCase() + estimate.difficulty.slice(1) + ' · ~' + estimate.minutes + ' min';
+        titleCell.appendChild(time);
+        addInterviewCues(record, titleCell);
+        records.push(record);
+        if (currentGroup) currentGroup.records.push(record);
+      });
+    });
+  }
+
+  function showStorageNotice() {
+    var notice = document.getElementById('storage-notice');
+    if (notice) {
+      notice.hidden = false;
+      notice.textContent = 'Browser storage is unavailable. Progress will remain only while this page stays open.';
+    }
+  }
+
+  function canUseStorage() {
+    try {
+      var probeKey = progressStorageKey + ':probe';
+      window.localStorage.setItem(probeKey, '1');
+      window.localStorage.removeItem(probeKey);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function persistProgress() {
+    if (!storageEnabled) return false;
+    try {
+      window.localStorage.setItem(progressStorageKey, JSON.stringify({
+        version: 1,
+        completed: Array.from(completedIds).sort()
+      }));
+      return true;
+    } catch (error) {
+      storageEnabled = false;
+      showStorageNotice();
+      return false;
+    }
+  }
+
+  function loadProgress(validIds) {
+    if (!storageEnabled) return new Set();
+    try {
+      var stored = window.localStorage.getItem(progressStorageKey);
+      if (stored) {
+        var parsed = JSON.parse(stored);
+        if (parsed.version === 1 && Array.isArray(parsed.completed)) {
+          return new Set(parsed.completed.filter(function (id) { return validIds.has(id); }));
+        }
+        return new Set();
+      }
+
+      var migrated = new Set();
+      for (var i = 0; i < window.localStorage.length; i += 1) {
+        var key = window.localStorage.key(i);
+        if (key && key.indexOf(legacyStoragePrefix) === 0 && window.localStorage.getItem(key) === '1') {
+          var oldId = key.slice(legacyStoragePrefix.length);
+          if (validIds.has(oldId)) migrated.add(oldId);
+        }
+      }
+      if (migrated.size) {
+        completedIds = migrated;
+        persistProgress();
+      }
+      return migrated;
+    } catch (error) {
+      return new Set();
+    }
+  }
+
   function updateProgress(section) {
-    var table = document.querySelectorAll('section#' + section + ' input.track');
-    var checked = document.querySelectorAll('section#' + section + ' input.track:checked').length;
-    var total = table.length;
+    var sectionRecords = records.filter(function (record) { return record.section === section; });
+    var checked = sectionRecords.filter(function (record) { return completedIds.has(record.id); }).length;
+    var total = sectionRecords.length;
     var pct = total ? Math.round((checked / total) * 100) : 0;
     var fill = document.querySelector('.progress-fill[data-section="' + section + '"]');
+    var bar = fill ? fill.parentElement : null;
     var label = document.querySelector('.progress-label[data-section="' + section + '"]');
     if (fill) fill.style.width = pct + '%';
+    if (bar) bar.setAttribute('aria-valuenow', String(pct));
     if (label) label.textContent = checked + ' / ' + total;
   }
-  ['dsa', 'python', 'shell'].forEach(function (section) {
-    updateProgress(section);
-    document.querySelectorAll('section#' + section + ' input.track').forEach(function (box) {
-      box.addEventListener('change', function () { updateProgress(section); });
+
+  function updateOverallProgress() {
+    var checked = completedIds.size;
+    var total = records.length;
+    var summary = document.getElementById('overall-progress');
+    if (summary) summary.textContent = checked + ' / ' + total + ' complete';
+    sections.forEach(updateProgress);
+  }
+
+  function populatePatternFilter() {
+    var select = document.getElementById('pattern-filter');
+    var patterns = [];
+    records.forEach(function (record) {
+      if (record.section === 'dsa' && patterns.indexOf(record.pattern) === -1) patterns.push(record.pattern);
+    });
+    patterns.forEach(function (pattern) {
+      var option = document.createElement('option');
+      option.value = pattern;
+      option.textContent = pattern;
+      select.appendChild(option);
+    });
+  }
+
+  function applyFilters() {
+    var query = normalize(document.getElementById('problem-search').value);
+    var selectedSection = document.getElementById('section-filter').value;
+    var selectedPattern = document.getElementById('pattern-filter').value;
+    var selectedDifficulty = document.getElementById('difficulty-filter').value;
+    var revisionOnly = document.getElementById('revision-filter').checked;
+    var visibleBySection = { dsa: 0, python: 0, shell: 0 };
+    visibleRecords = [];
+
+    records.forEach(function (record) {
+      var matches = (!query || record.searchText.indexOf(query) !== -1)
+        && (selectedSection === 'all' || record.section === selectedSection)
+        && (selectedPattern === 'all' || (record.section === 'dsa' && record.pattern === selectedPattern))
+        && (selectedDifficulty === 'all' || record.difficulty === selectedDifficulty)
+        && (!revisionOnly || completedIds.has(record.id));
+      record.row.hidden = !matches;
+      if (matches) {
+        visibleRecords.push(record);
+        visibleBySection[record.section] += 1;
+      } else {
+        record.row.classList.remove('spotlight-row');
+      }
+      record.matchesCurrentFilter = matches;
+    });
+
+    dsaGroups.forEach(function (group) {
+      var matchingRows = group.records.filter(function (record) { return record.matchesCurrentFilter; });
+      if (matchingRows.length) {
+        var firstVisibleRow = matchingRows[0].row;
+        if (group.cell.parentElement !== firstVisibleRow) {
+          firstVisibleRow.insertBefore(group.cell, firstVisibleRow.cells[0] || null);
+        }
+        group.cell.rowSpan = matchingRows.length;
+      } else {
+        if (group.cell.parentElement !== group.firstRow) {
+          group.firstRow.insertBefore(group.cell, group.firstRow.cells[0] || null);
+        }
+        group.cell.rowSpan = group.originalRowSpan;
+      }
+    });
+
+    sections.forEach(function (section) {
+      var visible = visibleBySection[section] > 0;
+      var sectionElement = document.getElementById(section);
+      var navLink = document.querySelector('nav a[href="#' + section + '"]');
+      sectionElement.hidden = !visible;
+      if (navLink) navLink.hidden = !visible;
+    });
+
+    document.getElementById('pattern-filter').disabled = selectedSection === 'python' || selectedSection === 'shell';
+    var summary = document.getElementById('filter-summary');
+    if (visibleRecords.length) {
+      summary.textContent = 'Showing ' + visibleRecords.length + ' of ' + records.length + ' problems';
+    } else {
+      summary.textContent = 'No problems match these filters. Clear a filter or search term to see the list.';
+    }
+  }
+
+  function syncNavHeight() {
+    var nav = document.querySelector('nav');
+    if (nav) document.documentElement.style.setProperty('--nav-height', nav.getBoundingClientRect().height + 'px');
+  }
+
+  function setFeedback(message) {
+    document.getElementById('practice-feedback').textContent = message;
+  }
+
+  function exportProgress() {
+    var data = {
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      completed: Array.from(completedIds).sort()
+    };
+    var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = 'devops-sre-prep-progress.json';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    setFeedback('Progress exported to a JSON file.');
+  }
+
+  function importProgressText(text) {
+    try {
+      var imported = JSON.parse(text);
+      if (!imported || imported.version !== 1 || !Array.isArray(imported.completed)) {
+        throw new Error('This file is not a supported progress export.');
+      }
+      var validIds = new Set(records.map(function (record) { return record.id; }));
+      var nextIds = new Set(imported.completed.filter(function (id) { return typeof id === 'string' && validIds.has(id); }));
+      if (imported.completed.length && !nextIds.size) {
+        throw new Error('This progress file does not contain questions from this page.');
+      }
+      completedIds = nextIds;
+      records.forEach(function (record) { record.box.checked = completedIds.has(record.id); });
+      persistProgress();
+      updateOverallProgress();
+      applyFilters();
+      setFeedback('Imported progress: ' + completedIds.size + ' completed problems.');
+    } catch (error) {
+      setFeedback(error.message || 'Could not read that progress file.');
+    }
+  }
+
+  function resetProgress() {
+    if (!window.confirm('Reset all saved practice progress in this browser? Export a copy first if you may want it later.')) return;
+    completedIds.clear();
+    records.forEach(function (record) { record.box.checked = false; });
+    try {
+      if (storageEnabled) {
+        window.localStorage.removeItem(progressStorageKey);
+        for (var i = window.localStorage.length - 1; i >= 0; i -= 1) {
+          var key = window.localStorage.key(i);
+          if (key && key.indexOf(legacyStoragePrefix) === 0) window.localStorage.removeItem(key);
+        }
+      }
+    } catch (error) {
+      storageEnabled = false;
+      showStorageNotice();
+    }
+    document.getElementById('revision-filter').checked = false;
+    updateOverallProgress();
+    applyFilters();
+    setFeedback('Progress has been reset.');
+  }
+
+  function pickRandomProblem() {
+    if (!visibleRecords.length) {
+      setFeedback('No matching problems to pick. Clear a filter or search term first.');
+      return;
+    }
+    var uncompleted = visibleRecords.filter(function (record) { return !completedIds.has(record.id); });
+    var choices = uncompleted.length ? uncompleted : visibleRecords;
+    var picked = choices[Math.floor(Math.random() * choices.length)];
+    if (lastPickedRow) lastPickedRow.classList.remove('spotlight-row');
+    lastPickedRow = picked.row;
+    picked.row.classList.add('spotlight-row');
+    picked.row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setFeedback('Practice pick: ' + picked.title + ' · ' + sectionNames[picked.section] + (uncompleted.length ? '' : ' · already completed, good for revision'));
+  }
+
+  buildRecords();
+  storageEnabled = canUseStorage();
+  if (!storageEnabled) showStorageNotice();
+  var validProblemIds = new Set(records.map(function (record) { return record.id; }));
+  completedIds = loadProgress(validProblemIds);
+  records.forEach(function (record) {
+    record.box.checked = completedIds.has(record.id);
+    record.box.addEventListener('change', function () {
+      if (record.box.checked) completedIds.add(record.id);
+      else completedIds.delete(record.id);
+      persistProgress();
+      updateOverallProgress();
+      applyFilters();
     });
   });
+
+  populatePatternFilter();
+  updateOverallProgress();
+  applyFilters();
+  syncNavHeight();
+  window.addEventListener('resize', syncNavHeight, { passive: true });
+
+  document.getElementById('problem-search').addEventListener('input', applyFilters);
+  document.getElementById('section-filter').addEventListener('change', function (event) {
+    if (event.target.value === 'python' || event.target.value === 'shell') {
+      document.getElementById('pattern-filter').value = 'all';
+    }
+    applyFilters();
+  });
+  document.getElementById('pattern-filter').addEventListener('change', applyFilters);
+  document.getElementById('difficulty-filter').addEventListener('change', applyFilters);
+  document.getElementById('revision-filter').addEventListener('change', applyFilters);
+  document.getElementById('clear-filters').addEventListener('click', function () {
+    document.getElementById('problem-search').value = '';
+    document.getElementById('section-filter').value = 'all';
+    document.getElementById('pattern-filter').value = 'all';
+    document.getElementById('difficulty-filter').value = 'all';
+    document.getElementById('revision-filter').checked = false;
+    setFeedback('Filters cleared.');
+    applyFilters();
+  });
+  document.getElementById('random-practice').addEventListener('click', pickRandomProblem);
+  document.getElementById('export-progress').addEventListener('click', exportProgress);
+  document.getElementById('import-progress').addEventListener('click', function () {
+    document.getElementById('progress-file').click();
+  });
+  document.getElementById('progress-file').addEventListener('change', function (event) {
+    var file = event.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () { importProgressText(String(reader.result || '')); };
+    reader.onerror = function () { setFeedback('Could not read that file.'); };
+    reader.readAsText(file);
+    event.target.value = '';
+  });
+  document.getElementById('reset-progress').addEventListener('click', resetProgress);
 </script>
 
 </body>
